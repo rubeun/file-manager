@@ -1,24 +1,25 @@
 # File Manager 
-File manager TypeScript App to browse, edit, delete & create files and folders.
+Rudimentary file manager app to browse, edit, delete & create files and folders.
+Default data is loaded from a JSON file and stored in App state.
 
-File Data:
+File Manager data format:
 ```
-{
-  id: <string>,
-  name: <string>,
-  isFolder: <boolean>,
-  nodes: <array of objects>, 
+type Node = {
+  id: string;
+  name: string;
+  isFolder: boolean;
+  nodes: Node[];
 }
 ```
 
 Icons:
-📁 closed folder
-📂 open folder
-📄 file
-✏️ edit
-🗑️ delete
-🗂  new folder
-📝  new file
+* 📁 closed folder
+* 📂 open folder
+* 📄 file
+* ✏️ edit
+* 🗑️ delete
+* 🗂  new folder
+* 📝  new file
 
 
 ## Available Scripts
