@@ -1,9 +1,20 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders header text', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const headerElement = screen.getByText(/file manager/i);
+  expect(headerElement).toBeInTheDocument();
+});
+
+test('loads data and renders data', () => {
+  render(<App />);
+  const initialContent = screen.getByText(/root/);
+  expect(initialContent).toBeInTheDocument();
+
+  fireEvent.click(initialContent);
+  waitFor(() =>{
+    expect(screen.findByText(/src/)).toBeInTheDocument();
+  });
 });
