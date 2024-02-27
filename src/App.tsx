@@ -38,7 +38,7 @@ const App = () => {
       <header className="App-header">
         <h1>File Manager</h1>
       </header>
-      <div>
+      <div className='wrapper'>
         {showContent(fileData, fileData)}
       </div>
     </div>

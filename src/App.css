@@ -1,9 +1,9 @@
 .App {
-  text-align: center;
+  background-color: #282c34;
 }
 
 .App-header {
-  background-color: #282c34;
+  text-align: center;
   min-height: 20vh;
   display: flex;
   flex-direction: column;
@@ -11,4 +11,28 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+div {
+  padding-left: 0.5rem;
+}
+
+div div {
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+}
+
+
+.wrapper {
+  display: flex;
+  width: 60%;
+  height: 100vh;
+  margin: auto;
+  padding: 2rem 3rem;
+  background-color: white;
+  text-align: left;
+}
+
+.button {
+  cursor: pointer;
 }

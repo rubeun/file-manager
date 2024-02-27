@@ -15,7 +15,7 @@ const File: FC<FileType> = ({ node }) => {
 
   return (
     <div key={node.id}>
-      <span>📄 {node.name} </span>
+      <span className="button">📄 {node.name} </span>
     </div>
   );
 };
