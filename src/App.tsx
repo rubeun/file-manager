@@ -62,7 +62,9 @@ const App = () => {
       return (
         <File
           key={node.id}
+          parentNode={parentNode}
           node={node}
+          editName={editName}
         />
       );
     }

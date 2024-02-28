@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { useState, FC } from "react";
 
 type Node = {
   id: string;
@@ -8,14 +8,40 @@ type Node = {
 }
 
 type FileType = {
+  parentNode: Node;
   node: Node;
+  editName: any;
 }
 
-const File: FC<FileType> = ({ node }) => {
+const File: FC<FileType> = ({ parentNode, node, editName }) => {
+  const [showInput, setShowInput] = useState(false);
+  const [inputText, setInputText] = useState(node.name);
+
+  const handleEditName = () => {
+    setShowInput(false);
+    editName(parentNode, node.id, inputText);
+  };
 
   return (
-    <div key={node.id}>
-      <span className="button">📄 {node.name} </span>
+    <div>
+      {showInput ? (
+        <span>
+          <input
+            type="text"
+            value={inputText}
+            placeholder="New File Name"
+            onChange={(e) => setInputText(e.target.value)}
+          />
+          <button onClick={() => handleEditName()}>Save</button>
+        </span>
+      ) : (
+        <span>📄 {node.name} </span>
+      )}
+
+      <span className="button" onClick={() => setShowInput(!showInput)}>
+        {" "}
+        ✏️
+      </span>
     </div>
   );
 };
