@@ -14,13 +14,47 @@ type Node = {
 const App = () => {
   const [fileData, setFileData] = useState<Node>(fileManagerData as Node);
 
+  // Rename File or Folder names
+  const editName = (parentNode: Node, nodeID: string, newName: string) => {
+    if (nodeID === "root") {
+      console.log("root node");
+      let tempFileData = { ...fileData };
+      tempFileData.name = newName;
+      setFileData(tempFileData);
+    } else {
+      console.log("child node");
+      let tempFileData = { ...fileData };
+
+      const dfs = (fileDataNode: Node) => {
+        // console.log("dfs - fileDataNode", fileDataNode);
+        if (!fileDataNode.nodes || fileDataNode.nodes?.length < 1) {
+          console.log("No Nodes array - name: ", fileDataNode.name);
+          return fileDataNode;
+        }
+
+        fileDataNode.nodes.forEach((node) => {
+          if (node.id === nodeID) {
+            node.name = newName;
+          } else {
+            dfs(node);
+          }
+        });
+      };
+      dfs(tempFileData);
+      setFileData(tempFileData);
+    }
+  }
+
+  // Renders either Folder or File component 
   const showContent= (parentNode: Node, node: Node) => {
     if (node.isFolder === true) {
       return (
         <Folder
           key={node.id}
+          parentNode={parentNode}
           node={node}
           showContent={showContent}
+          editName={editName}
         />
       );
       // }
@@ -33,13 +67,14 @@ const App = () => {
       );
     }
   }
+
   return (
     <div className="App">
       <header className="App-header">
         <h1>File Manager</h1>
       </header>
       <div className='wrapper'>
-        {showContent(fileData, fileData)}
+        <Folder parentNode={fileData} node={fileData} showContent={showContent} editName={editName} />
       </div>
     </div>
   );
