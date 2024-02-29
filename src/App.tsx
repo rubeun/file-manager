@@ -17,18 +17,15 @@ const App = () => {
   // Rename File or Folder names
   const editName = (parentNode: Node, nodeID: string, newName: string) => {
     if (nodeID === "root") {
-      console.log("root node");
       let tempFileData = { ...fileData };
       tempFileData.name = newName;
       setFileData(tempFileData);
     } else {
-      console.log("child node");
       let tempFileData = { ...fileData };
 
       const dfs = (fileDataNode: Node) => {
         // console.log("dfs - fileDataNode", fileDataNode);
         if (!fileDataNode.nodes || fileDataNode.nodes?.length < 1) {
-          console.log("No Nodes array - name: ", fileDataNode.name);
           return fileDataNode;
         }
 
