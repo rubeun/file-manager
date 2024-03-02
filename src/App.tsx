@@ -3,6 +3,7 @@ import './App.css';
 import { fileManagerData } from './data/fileManagerData';
 import File from './components/File';
 import Folder from './components/Folder';
+import Header from './components/Header';
 
 type Node = {
   id: string;
@@ -69,9 +70,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>File Manager</h1>
-      </header>
+      <Header />
       <div className='wrapper'>
         <Folder parentNode={fileData} node={fileData} showContent={showContent} editName={editName} />
       </div>

@@ -13,6 +13,14 @@
   color: white;
 }
 
+.icons {
+  padding-bottom: 1rem;
+}
+
+.icons span {
+  padding: 1rem;
+}
+
 div div {
   padding-left: 1rem;
   padding-top: 0.5rem;
@@ -27,6 +35,7 @@ div div {
   padding: 2rem 3rem;
   background-color: white;
   text-align: left;
+  font-size: 1.2rem;
 }
 
 .button {
