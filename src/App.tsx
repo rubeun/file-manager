@@ -13,16 +13,29 @@ type Node = {
 }
 
 const App = () => {
-  const [fileData, setFileData] = useState<Node>(fileManagerData as Node);
+  const [fileData, setFileData] = useState<Node | null>(fileManagerData as Node);
+
+  // ################################# DELETE FILE/FOLDER #################################
+  const deleteNode = (parentNode: Node, nodeID: string) => {
+    console.log("deleteNode nodeID:", nodeID);
+    // Check if parentID is root or child
+    if (nodeID === "root") {
+      setFileData(null);
+    } else {
+
+    }
+  };
+
+
 
   // Rename File or Folder names
   const editName = (parentNode: Node, nodeID: string, newName: string) => {
     if (nodeID === "root") {
-      let tempFileData = { ...fileData };
+      let tempFileData = { ...fileData as Node };
       tempFileData.name = newName;
       setFileData(tempFileData);
     } else {
-      let tempFileData = { ...fileData };
+      let tempFileData = { ...fileData as Node };
 
       const dfs = (fileDataNode: Node) => {
         // console.log("dfs - fileDataNode", fileDataNode);
@@ -52,6 +65,7 @@ const App = () => {
           parentNode={parentNode}
           node={node}
           showContent={showContent}
+          deleteNode={deleteNode}
           editName={editName}
         />
       );
@@ -72,7 +86,7 @@ const App = () => {
     <div className="App">
       <Header />
       <div className='wrapper'>
-        <Folder parentNode={fileData} node={fileData} showContent={showContent} editName={editName} />
+        <Folder parentNode={fileData} node={fileData} showContent={showContent} deleteNode={deleteNode} editName={editName} />
       </div>
     </div>
   );

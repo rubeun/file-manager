@@ -7,50 +7,57 @@ type Node = {
   nodes: Node[];
 }
 
-
 type FolderType = {
-  parentNode: Node;
-  node: Node;
+  parentNode: Node | null;
+  node: Node | null;
+  deleteNode: any;
   showContent: any;
   editName: any;
 }
 
-const Folder: FC<FolderType> = ({ parentNode, node, showContent, editName }) => {
+const Folder: FC<FolderType> = ({ parentNode, node, showContent, deleteNode, editName }) => {
   const [folderOpen, setFolderOpen] = useState(false);
-  const [showInput, setShowInput] = useState(false);
-  const [inputText, setInputText] = useState(node.name);
+  const [showEditInput, setShowEditInput] = useState(false);
+  const [inputText, setInputText] = useState(node?.name);
 
   const handleEditName = () => {
-    setShowInput(false);
-    editName(parentNode, node.id, inputText);
+    setShowEditInput(false);
+    editName(parentNode, node?.id, inputText);
   };
 
+  // If root node is null, show nothing
+  if (parentNode === null || node === null) {
+    return null;
+  }
 
   return (
     <div>
-      {showInput ? (
+      {showEditInput ? (
         <span>
           <input
             type="text"
             value={inputText}
-            placeholder="Update Folder Name"
             onChange={(e) => setInputText(e.target.value)}
           />
           <button onClick={() => handleEditName()}>Save</button>
         </span>
       ) : (
         <span className="button" onClick={() => setFolderOpen(!folderOpen)}>
-          {folderOpen ? `📂 ${node.name}` : `📁 ${node.name}`}
+          {folderOpen ? `📂 ${node?.name}` : `📁 ${node?.name}`}
         </span>
       )}
-      <span className="button" onClick={() => setShowInput(!showInput)}>
+      <span className="button" onClick={() => deleteNode(parentNode, node?.id)}>
+        {" "}
+        🗑️
+      </span>
+      <span className="button" onClick={() => setShowEditInput(!showEditInput)}>
         {" "}
         ✏️
       </span>
 
       {folderOpen
-        ? node.nodes.length > 0 &&
-          node.nodes.map((child) => showContent(node, child))
+        ? node?.nodes &&
+          node?.nodes.map((child) => showContent(node, child))
         : null}
     </div>
   );
