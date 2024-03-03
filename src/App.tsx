@@ -17,28 +17,51 @@ const App = () => {
 
   // ################################# DELETE FILE/FOLDER #################################
   const deleteNode = (parentNode: Node, nodeID: string) => {
-    console.log("deleteNode nodeID:", nodeID);
-    // Check if parentID is root or child
-    if (nodeID === "root") {
+    if (nodeID === "root") { // #### ROOT
       setFileData(null);
-    } else {
+    } else { // #### CHILD
+      let tempFileData = { ...fileData as Node };
+      // update the parentNode nodes array and remove the node with the matching nodeID
+      const updatedNodes = parentNode.nodes.filter(
+        (node) => node.id !== nodeID,
+      );
+      // find the appropriate node based on parentNode using DFS
+      const dfs = (fileDataNode: Node) => {
+        if (!fileDataNode.nodes || fileDataNode.nodes?.length < 1) {
+          return fileDataNode;
+        }
 
+        fileDataNode.nodes.forEach((node) => {
+          if (node.id === parentNode.id) {
+            // replace the corresponding nodes with updated parentNodes nodes array
+            node.nodes = updatedNodes;
+          } else {
+            dfs(node);
+          }
+        });
+      };
+      if (parentNode.id === "root") {
+        tempFileData.nodes = updatedNodes;
+      } else {
+        dfs(tempFileData);
+      }
+      // update the fileData state
+      setFileData(tempFileData);
     }
   };
 
 
 
-  // Rename File or Folder names
+  // ################################# RENAME FILE/FOLDER #################################
   const editName = (parentNode: Node, nodeID: string, newName: string) => {
-    if (nodeID === "root") {
+    if (nodeID === "root") { // #### ROOT
       let tempFileData = { ...fileData as Node };
       tempFileData.name = newName;
       setFileData(tempFileData);
-    } else {
+    } else { // #### CHILD 
       let tempFileData = { ...fileData as Node };
 
       const dfs = (fileDataNode: Node) => {
-        // console.log("dfs - fileDataNode", fileDataNode);
         if (!fileDataNode.nodes || fileDataNode.nodes?.length < 1) {
           return fileDataNode;
         }
@@ -56,7 +79,7 @@ const App = () => {
     }
   }
 
-  // Renders either Folder or File component 
+  // ################################# RENDER FILE/FOLDER #################################
   const showContent= (parentNode: Node, node: Node) => {
     if (node.isFolder === true) {
       return (
