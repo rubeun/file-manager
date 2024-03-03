@@ -10,10 +10,11 @@ type Node = {
 type FileType = {
   parentNode: Node;
   node: Node;
+  deleteNode: any;
   editName: any;
 }
 
-const File: FC<FileType> = ({ parentNode, node, editName }) => {
+const File: FC<FileType> = ({ parentNode, node, deleteNode, editName }) => {
   const [showInput, setShowInput] = useState(false);
   const [inputText, setInputText] = useState(node.name);
 
@@ -37,7 +38,10 @@ const File: FC<FileType> = ({ parentNode, node, editName }) => {
       ) : (
         <span>📄 {node.name} </span>
       )}
-
+      <span className="button" onClick={() => deleteNode(parentNode, node?.id)}>
+        {" "}
+        🗑️
+      </span>
       <span className="button" onClick={() => setShowInput(!showInput)}>
         {" "}
         ✏️

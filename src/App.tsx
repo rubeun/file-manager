@@ -99,6 +99,7 @@ const App = () => {
           key={node.id}
           parentNode={parentNode}
           node={node}
+          deleteNode={deleteNode}
           editName={editName}
         />
       );
