@@ -84,6 +84,38 @@ const App = () => {
     }
   }
 
+  // ##### ADD FOLDER ##########################################
+  const addFolder = (nodeID: string, folderName: string) => {
+    console.log("nodeID", nodeID);
+    const newID = calculateNewID();
+    const newFolder = {
+      id: newID,
+      name: folderName,
+      isFolder: true,
+      nodes: [],
+    };
+    let newFileData;
+
+    if (nodeID === "root") { // Add to Root folder
+      console.log("add folder to root ", folderName);
+      console.log("newFolder ", newFolder);
+
+      const newNodes = fileData?.nodes ? [...fileData.nodes, newFolder] : [newFolder];
+      console.log("add folder root newNodes", newNodes);
+      newFileData = { ...fileData };
+      newFileData = {
+        ...newFileData,
+        nodes: newNodes,
+      };
+      console.log("add folder root newFileData", newFileData);
+    } else {
+      console.log("add folder to child ", folderName);
+      // **** TODO ****
+      return null;
+    }
+    setFileData(newFileData as Node);
+  };  
+
   // ################################# RENDER FILE/FOLDER #################################
   const showContent= (parentNode: Node, node: Node) => {
     if (node.isFolder === true) {
@@ -95,6 +127,7 @@ const App = () => {
           showContent={showContent}
           deleteNode={deleteNode}
           editName={editName}
+          addFolder={addFolder}
         />
       );
       // }
@@ -115,7 +148,7 @@ const App = () => {
     <div className="App">
       <Header />
       <div className='wrapper'>
-        <Folder parentNode={fileData} node={fileData} showContent={showContent} deleteNode={deleteNode} editName={editName} />
+        <Folder parentNode={fileData} node={fileData} showContent={showContent} deleteNode={deleteNode} editName={editName} addFolder={addFolder} />
       </div>
     </div>
   );
