@@ -15,6 +15,11 @@ type Node = {
 const App = () => {
   const [fileData, setFileData] = useState<Node | null>(fileManagerData as Node);
 
+  // Create New ID needed for new Folder or File's
+  const calculateNewID = () => {
+    return Date.now().toString();
+  };
+
   // ################################# DELETE FILE/FOLDER #################################
   const deleteNode = (parentNode: Node, nodeID: string) => {
     if (nodeID === "root") { // #### ROOT
