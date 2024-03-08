@@ -116,6 +116,39 @@ const App = () => {
     setFileData(newFileData as Node);
   };  
 
+  // ##### ADD FILE ##########################################
+  const addFile = (nodeID: string, fileName: string) => {
+    console.log("nodeID", nodeID);
+    const newID = calculateNewID();
+    const newFile = {
+      id: newID,
+      name: fileName,
+      nodes: [],
+    };
+    let newFileData;
+
+    if (nodeID === "root") {
+      console.log("add file to root");
+      console.log("fileName ", fileName);
+      let newNodes;
+      if (fileData?.nodes) {
+        newNodes = [...fileData.nodes, newFile];
+      } else {
+        console.log("add file fileData has no nodes");
+        newNodes = [newFile];
+      }
+      newFileData = {
+        ...fileData,
+        nodes: newNodes,
+      };
+    } else {
+      console.log("add file to child");
+      console.log("fileName ", fileName);
+      // ***** TODO *****
+    }
+    setFileData(newFileData as Node);
+  };  
+
   // ################################# RENDER FILE/FOLDER #################################
   const showContent= (parentNode: Node, node: Node) => {
     if (node.isFolder === true) {
