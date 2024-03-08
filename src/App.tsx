@@ -161,6 +161,7 @@ const App = () => {
           deleteNode={deleteNode}
           editName={editName}
           addFolder={addFolder}
+          addFile={addFile}
         />
       );
       // }
@@ -181,7 +182,7 @@ const App = () => {
     <div className="App">
       <Header />
       <div className='wrapper'>
-        <Folder parentNode={fileData} node={fileData} showContent={showContent} deleteNode={deleteNode} editName={editName} addFolder={addFolder} />
+        <Folder parentNode={fileData} node={fileData} showContent={showContent} deleteNode={deleteNode} editName={editName} addFolder={addFolder} addFile={addFile} />
       </div>
     </div>
   );
