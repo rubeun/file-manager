@@ -21,7 +21,7 @@ const App = () => {
   };
 
   // ################################# DELETE FILE/FOLDER #################################
-  const deleteNode = (parentNode: Node, nodeID: string) => {
+  const deleteNode = (parentNode: Node, nodeID: string): void => {
     if (nodeID === "root") { // #### ROOT
       setFileData(null);
     } else { // #### CHILD
@@ -58,7 +58,7 @@ const App = () => {
 
 
   // ################################# RENAME FILE/FOLDER #################################
-  const editName = (parentNode: Node, nodeID: string, newName: string) => {
+  const editName = (parentNode: Node, nodeID: string, newName: string): void => {
     if (nodeID === "root") { // #### ROOT
       let tempFileData = { ...fileData as Node };
       tempFileData.name = newName;
@@ -85,7 +85,7 @@ const App = () => {
   }
 
   // ##### ADD FOLDER ##########################################
-  const addFolder = (nodeID: string, folderName: string) => {
+  const addFolder = (nodeID: string, folderName: string): void => {
     console.log("nodeID", nodeID);
     const newID = calculateNewID();
     const newFolder = {
@@ -111,13 +111,12 @@ const App = () => {
     } else {
       console.log("add folder to child ", folderName);
       // **** TODO ****
-      return null;
     }
     setFileData(newFileData as Node);
   };  
 
   // ##### ADD FILE ##########################################
-  const addFile = (nodeID: string, fileName: string) => {
+  const addFile = (nodeID: string, fileName: string): void => {
     console.log("nodeID", nodeID);
     const newID = calculateNewID();
     const newFile = {
@@ -150,7 +149,7 @@ const App = () => {
   };  
 
   // ################################# RENDER FILE/FOLDER #################################
-  const showContent= (parentNode: Node, node: Node) => {
+  const showContent= (parentNode: Node, node: Node): any => {
     if (node.isFolder === true) {
       return (
         <Folder
