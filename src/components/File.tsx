@@ -1,4 +1,4 @@
-import { useState, FC } from "react";
+import { useState } from "react";
 
 type Node = {
   id: string;
@@ -14,7 +14,7 @@ type FileType = {
   editName: any;
 }
 
-const File: FC<FileType> = ({ parentNode, node, deleteNode, editName }) => {
+const File = ({ parentNode, node, deleteNode, editName }: FileType) => {
   const [showInput, setShowInput] = useState(false);
   const [inputText, setInputText] = useState(node.name);
 
