@@ -94,7 +94,7 @@ const App = () => {
       isFolder: true,
       nodes: [],
     };
-    let newFileData;
+    let newFileData = { ...fileData as Node };
 
     if (nodeID === "root") { // Add to Root folder
       console.log("add folder to root ", folderName);
@@ -102,7 +102,6 @@ const App = () => {
 
       const newNodes = fileData?.nodes ? [...fileData.nodes, newFolder] : [newFolder];
       console.log("add folder root newNodes", newNodes);
-      newFileData = { ...fileData };
       newFileData = {
         ...newFileData,
         nodes: newNodes,
@@ -110,7 +109,24 @@ const App = () => {
       console.log("add folder root newFileData", newFileData);
     } else {
       console.log("add folder to child ", folderName);
-      // **** TODO ****
+      const dfs = (fileDataNode: Node) => {
+        if (!fileDataNode.nodes || fileDataNode.nodes?.length < 1) {
+          return fileDataNode;
+        }
+
+        fileDataNode.nodes.forEach((node) => {
+          if (node.id === nodeID) {
+            console.log("found!", node);
+            const newNodes = [...node.nodes, newFolder];
+            console.log("newNodes - ", newNodes);
+            node.nodes = newNodes;
+            console.log("Updated node - ", node);
+          } else {
+            dfs(node);
+          }
+        });
+      };
+      dfs(newFileData);
     }
     setFileData(newFileData as Node);
   };  
@@ -143,7 +159,7 @@ const App = () => {
     } else {
       console.log("add file to child");
       console.log("fileName ", fileName);
-      // ***** TODO *****
+      // @@@@@@@@@ TODO @@@@@@@@@@@@
     }
     setFileData(newFileData as Node);
   };  
